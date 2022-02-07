@@ -40,5 +40,14 @@ export const Header = styled.header`
         box-shadow: 0 0 3rem #ccc;
       }
     }
+
+    @media (max-width: 768px) {
+      padding: 0.5rem 1rem;
+
+      button {
+        padding: 0.2rem 0.5rem;
+        font-size: 0.7rem;
+      }
+    }
   `}
 `;

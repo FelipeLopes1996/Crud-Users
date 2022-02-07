@@ -34,9 +34,6 @@ export const Wrapper = styled.div`
       padding: 1rem;
       transition: transform 0.3s ease-out;
       pointer-events: auto;
-      /* @media $ {theme.media.lteMedium} {
-        width: 86%;
-      } */
       div {
         margin: 1.5rem 0;
         span {

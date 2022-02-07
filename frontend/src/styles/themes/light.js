@@ -27,4 +27,7 @@ export default {
     dark: "#343a40",
     light: "#f8f9fa",
   },
+  spacings: {
+    small: "1rem",
+  },
 };

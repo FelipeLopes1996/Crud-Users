@@ -3,16 +3,47 @@ import { Link as LinkRouter } from "react-router-dom";
 
 export const Container = styled.section`
   display: flex;
+  z-index: 1;
 `;
 
 export const WrapperExportButtons = styled.div`
   display: flex;
   width: 100%;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    a {
+      width: 100%;
+    }
+  }
 `;
 export const WrapperTable = styled.section`
   width: 100%;
   padding: 2rem 3rem;
   text-align: center;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+    .scroll {
+      width: 100%;
+      overflow-x: scroll;
+      overflow-y: unset;
+      justify-content: flex-start;
+      ::-webkit-scrollbar {
+        width: 2px;
+        height: 12px;
+      }
+      ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        height: 200px;
+        border: 3px solid #ffffff;
+        background-color: #2c3e50;
+      }
+    }
+  }
 
   .users-found {
     width: 100%;
@@ -49,6 +80,7 @@ export const WrapperTable = styled.section`
 
 export const WrapperInputText = styled.div`
   display: flex;
+  align-items: center;
   align-items: center;
   justify-content: center;
   input {
@@ -89,6 +121,11 @@ export const WrapperInputText = styled.div`
       box-shadow: 0 0 1rem #ccc;
     }
   }
+
+  @media (max-width: 768px) {
+    width: 100;
+    justify-content: center !important;
+  }
 `;
 
 export const ButtonGenerate = styled.button`
@@ -113,6 +150,12 @@ export const ButtonGenerate = styled.button`
     font-size: 1.3rem;
     color: ${(props) => props.theme.bg.danger};
     margin-left: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin: 0 0 1rem 0;
+    text-align: center;
   }
 `;
 
@@ -144,19 +187,20 @@ export const TableBody = styled.tbody`
     font-weight: 600;
 
     select {
-    border: none;
-    border: 1px solid ${(props) => props.theme.bg.veryLightGray};
-    border-radius: 6px;
-    outline: none;
-    padding: 0.3rem 0.8rem;
-    transition: ease-in-out 400ms;
-    box-shadow: 0 0 0.1rem #ccc;
-    margin: 0.7rem 0;
-    &:hover {
-      box-shadow: 0 0 2rem #ccc;
-    }
-    &:focus {
-      box-shadow: 0 0 1rem #ccc;
+      border: none;
+      border: 1px solid ${(props) => props.theme.bg.veryLightGray};
+      border-radius: 6px;
+      outline: none;
+      padding: 0.3rem 0.8rem;
+      transition: ease-in-out 400ms;
+      box-shadow: 0 0 0.1rem #ccc;
+      margin: 0.7rem 0;
+      &:hover {
+        box-shadow: 0 0 2rem #ccc;
+      }
+      &:focus {
+        box-shadow: 0 0 1rem #ccc;
+      }
     }
   }
   tr {

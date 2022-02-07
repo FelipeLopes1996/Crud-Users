@@ -75,5 +75,9 @@ export const Form = styled.form`
         box-shadow: 0 0 1rem #ccc;
       }
     }
+    @media (max-width: 768px) {
+      width: 100%;
+      padding: 0 5rem;
+    }
   `}
 `;

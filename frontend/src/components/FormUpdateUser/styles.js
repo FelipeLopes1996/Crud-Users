@@ -30,10 +30,6 @@ export const Form = styled.form`
     width: 60%;
     padding: 0 7rem;
 
-    @media (max-width: 768px) {
-      padding: 0;
-    }
-
     label {
       font-weight: 600;
     }
@@ -89,6 +85,10 @@ export const Form = styled.form`
       &:focus {
         box-shadow: 0 0 1rem #ccc;
       }
+    }
+    @media (max-width: 768px) {
+      width: 100%;
+      padding: 0 5rem;
     }
   `}
 `;
