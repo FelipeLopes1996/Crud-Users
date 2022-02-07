@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import * as Styled from "./styles";
+import { BsArrowRightShort } from "react-icons/bs";
 
 export const FilterButtons = ({
   value = "",
@@ -16,6 +17,8 @@ export const FilterButtons = ({
   const [selectSearchInsertUser, setSelectSearchInsertUser] = useState(value);
   const [selectSearchUpdateUser, setSelectSearchUpdateUser] = useState(value);
 
+  const [isOpen, setIsOpen] = useState(false);
+
   const handleClick = (value) => {
     handleFilters(value);
   };
@@ -24,9 +27,15 @@ export const FilterButtons = ({
     setSelectSearchNome("Nome");
   }, []);
 
+  console.log(isOpen);
+
   return (
     <>
-      <Styled.WrapperFilters>
+      <Styled.OpenAsside Open={isOpen} onClick={() => setIsOpen(true)}>
+        Filtros
+        <BsArrowRightShort size={20} />
+      </Styled.OpenAsside>
+      <Styled.WrapperFilters Open={isOpen}>
         <h1>Filtros</h1>
         <button
           className={selectSearchNome ? "active" : "inative"}
@@ -41,6 +50,7 @@ export const FilterButtons = ({
             setSelectSearchInsertUser("");
             setCurrentPage(0);
             setSearch("");
+            setIsOpen(false);
           }}
         >
           Nome
@@ -59,6 +69,7 @@ export const FilterButtons = ({
             setSelectSearchInsertUser("");
             setCurrentPage(0);
             setSearch("");
+            setIsOpen(false);
           }}
         >
           Login
@@ -77,6 +88,7 @@ export const FilterButtons = ({
             setSelectSearchInsertUser("");
             setCurrentPage(0);
             setSearch("");
+            setIsOpen(false);
           }}
         >
           Cpf
@@ -95,6 +107,7 @@ export const FilterButtons = ({
             setSelectSearchInsertUser("");
             setCurrentPage(0);
             setSearch("");
+            setIsOpen(false);
           }}
         >
           Status
@@ -113,6 +126,7 @@ export const FilterButtons = ({
             setSelectSearchInsertUser("");
             setCurrentPage(0);
             setSearch("");
+            setIsOpen(false);
           }}
         >
           Data de nascimento
@@ -131,6 +145,7 @@ export const FilterButtons = ({
             setSelectSearchLogin("");
             setCurrentPage(0);
             setSearch("");
+            setIsOpen(false);
           }}
         >
           Data inserção
@@ -149,10 +164,12 @@ export const FilterButtons = ({
             setSelectSearchLogin("");
             setCurrentPage(0);
             setSearch("");
+            setIsOpen(false);
           }}
         >
-          Data Update
+          data de atualização
         </button>
+        <button onClick={() => setIsOpen(false)}>Voltar</button>
       </Styled.WrapperFilters>
     </>
   );

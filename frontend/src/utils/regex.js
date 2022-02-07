@@ -31,7 +31,7 @@ export const regex = {
       ? "ativo"
       : status === "block"
       ? "bloqueado"
-      : status === "inactive"
+      : status === "inative"
       ? "inativo"
       : null;
   },

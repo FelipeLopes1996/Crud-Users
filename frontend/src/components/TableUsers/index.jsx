@@ -71,49 +71,51 @@ export const TableUsers = () => {
           content={() => componentRef.current}
         />
       </Styled.WrapperExportButtons>
-      <Styled.TableContainer ref={componentRef}>
-        <Styled.TableHeader>
-          <Styled.Tr>
-            <Styled.Th>Nome</Styled.Th>
-            <Styled.Th>Cpf</Styled.Th>
-            <Styled.Th>Login</Styled.Th>
-            <Styled.Th>Status</Styled.Th>
-            <Styled.Th>Action</Styled.Th>
-          </Styled.Tr>
-        </Styled.TableHeader>
-        <Styled.TableBody>
-          {currentUsers.map((user, index) => (
-            <Styled.Tr key={index}>
-              <Styled.Td>{user.name}</Styled.Td>
-              <Styled.Td>{regex.maskCpf(user.cpf)}</Styled.Td>
-              <Styled.Td>{user.login}</Styled.Td>
-              <Styled.Td>{regex.validStatus(user.status)}</Styled.Td>
-              <Styled.Td>
-                <Styled.Actions>
-                  <Styled.Link to={`users/edit/${user.id}`}>
-                    <MdOutlineEdit />
-                  </Styled.Link>
-
-                  <Modal
-                    message={"Deseja Realmente excluir?"}
-                    confirmDelete={() => removeLineById(user.id)}
-                  >
-                    <Styled.BtnDestroy>
-                      <BsTrash />
-                    </Styled.BtnDestroy>
-                  </Modal>
-                </Styled.Actions>
-              </Styled.Td>
+      <div>
+        <Styled.TableContainer ref={componentRef}>
+          <Styled.TableHeader>
+            <Styled.Tr>
+              <Styled.Th>Nome</Styled.Th>
+              <Styled.Th>Cpf</Styled.Th>
+              <Styled.Th>Login</Styled.Th>
+              <Styled.Th>Status</Styled.Th>
+              <Styled.Th>Action</Styled.Th>
             </Styled.Tr>
-          ))}
-        </Styled.TableBody>
-      </Styled.TableContainer>
+          </Styled.TableHeader>
+          <Styled.TableBody>
+            {currentUsers.map((user, index) => (
+              <Styled.Tr key={index}>
+                <Styled.Td>{user.name}</Styled.Td>
+                <Styled.Td>{regex.maskCpf(user.cpf)}</Styled.Td>
+                <Styled.Td>{user.login}</Styled.Td>
+                <Styled.Td>{regex.validStatus(user.status)}</Styled.Td>
+                <Styled.Td>
+                  <Styled.Actions>
+                    <Styled.Link to={`users/edit/${user.id}`}>
+                      <MdOutlineEdit />
+                    </Styled.Link>
 
-      <PaginationComponent
-        pages={pages}
-        setCurrentPage={setCurrentPage}
-        currentPage={currentPage}
-      />
+                    <Modal
+                      message={"Deseja Realmente excluir?"}
+                      confirmDelete={() => removeLineById(user.id)}
+                    >
+                      <Styled.BtnDestroy>
+                        <BsTrash />
+                      </Styled.BtnDestroy>
+                    </Modal>
+                  </Styled.Actions>
+                </Styled.Td>
+              </Styled.Tr>
+            ))}
+          </Styled.TableBody>
+        </Styled.TableContainer>
+
+        <PaginationComponent
+          pages={pages}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+        />
+      </div>
     </Styled.WrapperTable>
   );
 };

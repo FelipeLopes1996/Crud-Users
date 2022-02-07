@@ -223,7 +223,7 @@ export const TableSearchResult = () => {
             <Styled.WrapperInputText>
               <input
                 type="text"
-                placeholder="Pesquise aqui"
+                placeholder={`Digite o ${filterValueButton}`}
                 value={search}
                 onChange={({ target }) => setSearch(target.value)}
               />
@@ -285,65 +285,67 @@ export const TableSearchResult = () => {
           <span>nenhum usuário encontrado </span>
         )}
         {search && selectSearchUpateUser && (
-          <Styled.TableContainer ref={componentRef}>
-            {resultFilters?.length ? (
-              <Styled.TableHeader>
-                <Styled.Tr>
-                  <Styled.Th>Nome</Styled.Th>
-                  <Styled.Th>Cpf</Styled.Th>
-                  <Styled.Th>Login</Styled.Th>
-                  <Styled.Th>status</Styled.Th>
-                  <Styled.Th>Ano</Styled.Th>
-                  <Styled.Th>Action</Styled.Th>
-                </Styled.Tr>
-              </Styled.TableHeader>
-            ) : null}
-            <Styled.TableBody>
-              {currentUsers &&
-                currentUsers.map((user, index) => (
-                  <Styled.Tr key={index}>
-                    <Styled.Td>{user.name}</Styled.Td>
-                    <Styled.Td>{regex.maskCpf(user.cpf)}</Styled.Td>
-                    <Styled.Td>{user.login}</Styled.Td>
-                    <Styled.Td>
-                      {" "}
-                      <select
-                        value={user.status}
-                        onChange={({ target }) => {
-                          fetchStatusUpdate(user.id, {
-                            status: target.value,
-                          });
-                          setSelectSearchUpateUser(false);
-                          setTimeout(() => {
-                            setSelectSearchUpateUser(true);
-                          }, 1);
-                        }}
-                      >
-                        <option value="block">Bloqueado</option>
-                        <option value="inative">Inativo</option>
-                        <option value="active">Ativo</option>
-                      </select>
-                    </Styled.Td>
-                    <Styled.Td>{user.birthday}</Styled.Td>
-                    <Styled.Td>
-                      <Styled.Actions>
-                        <Styled.Link to={`/dash/users/edit/${user.id}`}>
-                          <MdOutlineEdit />
-                        </Styled.Link>
-                        <Modal
-                          message={"Deseja Realmente excluir?"}
-                          confirmDelete={() => removeLineById(user.id)}
-                        >
-                          <Styled.BtnDestroy>
-                            <BsTrash />
-                          </Styled.BtnDestroy>
-                        </Modal>
-                      </Styled.Actions>
-                    </Styled.Td>
+          <div className="scroll">
+            <Styled.TableContainer ref={componentRef}>
+              {resultFilters?.length ? (
+                <Styled.TableHeader>
+                  <Styled.Tr>
+                    <Styled.Th>Nome</Styled.Th>
+                    <Styled.Th>Cpf</Styled.Th>
+                    <Styled.Th>Login</Styled.Th>
+                    <Styled.Th>status</Styled.Th>
+                    <Styled.Th>Ano</Styled.Th>
+                    <Styled.Th>Action</Styled.Th>
                   </Styled.Tr>
-                ))}
-            </Styled.TableBody>
-          </Styled.TableContainer>
+                </Styled.TableHeader>
+              ) : null}
+              <Styled.TableBody>
+                {currentUsers &&
+                  currentUsers.map((user, index) => (
+                    <Styled.Tr key={index}>
+                      <Styled.Td>{user.name}</Styled.Td>
+                      <Styled.Td>{regex.maskCpf(user.cpf)}</Styled.Td>
+                      <Styled.Td>{user.login}</Styled.Td>
+                      <Styled.Td>
+                        {" "}
+                        <select
+                          value={user.status}
+                          onChange={({ target }) => {
+                            fetchStatusUpdate(user.id, {
+                              status: target.value,
+                            });
+                            setSelectSearchUpateUser(false);
+                            setTimeout(() => {
+                              setSelectSearchUpateUser(true);
+                            }, 1);
+                          }}
+                        >
+                          <option value="block">Bloqueado</option>
+                          <option value="inative">Inativo</option>
+                          <option value="active">Ativo</option>
+                        </select>
+                      </Styled.Td>
+                      <Styled.Td>{user.birthday}</Styled.Td>
+                      <Styled.Td>
+                        <Styled.Actions>
+                          <Styled.Link to={`/dash/users/edit/${user.id}`}>
+                            <MdOutlineEdit />
+                          </Styled.Link>
+                          <Modal
+                            message={"Deseja Realmente excluir?"}
+                            confirmDelete={() => removeLineById(user.id)}
+                          >
+                            <Styled.BtnDestroy>
+                              <BsTrash />
+                            </Styled.BtnDestroy>
+                          </Modal>
+                        </Styled.Actions>
+                      </Styled.Td>
+                    </Styled.Tr>
+                  ))}
+              </Styled.TableBody>
+            </Styled.TableContainer>
+          </div>
         )}
         {search && resultFilters.length > 0 && (
           <Modal
