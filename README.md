@@ -2,7 +2,7 @@
 
 Consiste em uma aplicação para criar usuário, fazer login com o usuário, logout, deletar usuário, deletar vários usuários, editar usuário, mudar status do usuário, usuários inativos só aparecem no filtro de status, consultar usuários com os filtros selecionados na página de pesquisar usuários, imprimir e exporta dados.
 
-# O que você precisa para iniciar o projeto
+# Para iniciar o Frontend
 
 1º Baixar o projeto ou clonar.
 
