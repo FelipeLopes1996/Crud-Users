@@ -169,7 +169,9 @@ export const FilterButtons = ({
         >
           data de atualização
         </button>
-        <button onClick={() => setIsOpen(false)}>Voltar</button>
+        <button className={!isOpen && "hide"} onClick={() => setIsOpen(false)}>
+          Voltar
+        </button>
       </Styled.WrapperFilters>
     </>
   );

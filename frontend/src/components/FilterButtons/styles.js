@@ -29,6 +29,9 @@ export const WrapperFilters = styled.aside`
     box-shadow: 0 0 1rem #ccc;
     transition: ease-in-out 500ms;
   }
+  .hide {
+    display: none;
+  }
 
   .active {
     background-color: ${(props) => props.theme.bg.darkBlue};
