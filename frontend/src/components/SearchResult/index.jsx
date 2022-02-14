@@ -1,25 +1,15 @@
 import React, { useEffect, useState, useCallback } from "react";
 import * as Styled from "./styles";
 
-import {
-  fetchUsers,
-  fetchDestroyer,
-  fetchStatusUpdate,
-} from "../../services/serviceCrud";
-import { PaginationComponent } from "../PaginationComponent";
-import { Modal } from "../Modal";
+import { fetchUsers } from "../../services/serviceCrud";
+import { TableResult } from "../TableResult";
 import { FilterButtons } from "../FilterButtons";
-
-import { BsTrash } from "react-icons/bs";
-import { MdOutlineEdit } from "react-icons/md";
 import { BiSearchAlt } from "react-icons/bi";
 import { AiOutlineFilePdf, AiOutlinePrinter } from "react-icons/ai";
 import { SiMicrosoftexcel } from "react-icons/si";
 
 import usersPDF from "../../reports/users/users";
 import { CSVLink } from "react-csv";
-
-import { regex } from "../../utils/regex";
 import { dataExcel, headers } from "../../reports/users/excel";
 
 import ReactToPrint from "react-to-print";
@@ -33,9 +23,10 @@ import {
   filterYearBorn,
   filterInsertUser,
   filterUpateUser,
+  filterAge,
 } from "../../utils/filtersFunc";
 
-export const TableSearchResult = () => {
+export const SearchResult = () => {
   const componentRef = React.useRef();
   const [search, setSearch] = useState("");
   const [users, setUsers] = useState([]);
@@ -53,6 +44,7 @@ export const TableSearchResult = () => {
 
   useEffect(() => {
     getUsers();
+    document.title = "Pesquisar usuário";
   }, [getUsers]);
 
   useEffect(() => {
@@ -92,6 +84,10 @@ export const TableSearchResult = () => {
     return filterUpateUser(users, search);
   }, [search, users]);
 
+  const filterYearUserResult = React.useMemo(() => {
+    return filterAge(users, search);
+  }, [search, users]);
+
   const resultFilters = React.useMemo(() => {
     if (
       filterValueButton !== "Login" &&
@@ -99,6 +95,7 @@ export const TableSearchResult = () => {
       filterValueButton !== "Status" &&
       filterValueButton !== "YearBorn" &&
       filterValueButton !== "InsertUser" &&
+      filterValueButton !== "YearUser" &&
       filterValueButton !== "UpdateUser"
     ) {
       return filterNameResult;
@@ -109,6 +106,7 @@ export const TableSearchResult = () => {
       filterValueButton !== "Status" &&
       filterValueButton !== "YearBorn" &&
       filterValueButton !== "InsertUser" &&
+      filterValueButton !== "YearUser" &&
       filterValueButton !== "UpdateUser"
     ) {
       return filterLoginResult;
@@ -119,6 +117,7 @@ export const TableSearchResult = () => {
       filterValueButton !== "Status" &&
       filterValueButton !== "YearBorn" &&
       filterValueButton !== "InsertUser" &&
+      filterValueButton !== "YearUser" &&
       filterValueButton !== "UpdateUser"
     ) {
       return filterCpfResult;
@@ -141,6 +140,9 @@ export const TableSearchResult = () => {
     if (filterValueButton === "UpdateUser") {
       return filterUpdateUsersResult;
     }
+    if (filterValueButton === "YearUser") {
+      return filterYearUserResult;
+    }
     return null;
   }, [
     filterValueButton,
@@ -151,35 +153,15 @@ export const TableSearchResult = () => {
     filterYearBronResult,
     filterInsertUsersResult,
     filterUpdateUsersResult,
+    filterYearUserResult,
   ]);
-
-  const pages = Math.ceil(resultFilters?.length / usersPerPage);
-  const startIndex = currentPage * usersPerPage;
-  const endIndex = startIndex + usersPerPage;
-  const currentUsers = resultFilters?.slice(startIndex, endIndex);
-
   useEffect(() => {
     setCurrentPage(0);
   }, [usersPerPage]);
 
   useEffect(() => {}, [selectSearchUpateUser]);
-
-  const removeLineById = (id) => {
-    const _user = users.filter((user) => user.id !== id);
-    setUsers(_user);
-    return fetchDestroyer(id);
-  };
-
   const handleFiltersValue = (value) => {
     setFilterValueButton(value);
-  };
-
-  const removeAllList = () => {
-    setSelectSearchUpateUser(false);
-
-    for (let user of resultFilters) {
-      fetchDestroyer(user.id);
-    }
   };
 
   return (
@@ -189,7 +171,6 @@ export const TableSearchResult = () => {
         setCurrentPage={() => setCurrentPage(0)}
         setSearch={() => setSearch("")}
       />
-
       <Styled.WrapperTable>
         {search && resultFilters.length > 0 && (
           <Styled.WrapperExportButtons>
@@ -219,11 +200,16 @@ export const TableSearchResult = () => {
         {filterValueButton === "Status" ||
           filterValueButton === "YearBorn" ||
           filterValueButton === "InsertUser" ||
-          filterValueButton === "UpdateUser" || (
+          filterValueButton === "UpdateUser" ||
+          filterValueButton === "YearUser" || (
             <Styled.WrapperInputText>
               <input
                 type="text"
-                placeholder={`Digite o ${filterValueButton}`}
+                placeholder={
+                  filterValueButton === ""
+                    ? "Digite o Nome"
+                    : `Digite o ${filterValueButton}`
+                }
                 value={search}
                 onChange={({ target }) => setSearch(target.value)}
               />
@@ -242,6 +228,23 @@ export const TableSearchResult = () => {
               <option value="block">Bloqueado</option>
               <option value="inative">Inativo</option>
               <option value="active">Ativo</option>
+            </select>
+          </Styled.WrapperInputText>
+        )}
+        {filterValueButton === "YearUser" && (
+          <Styled.WrapperInputText>
+            <select
+              onChange={({ target }) => {
+                setCurrentPage(0);
+                setSearch(target.value);
+              }}
+            >
+              <option value="">Escolha a Idade</option>
+              <option value="26">idade entre 18 e 26 anos</option>
+              <option value="31">idade entre 25 e 31 anos</option>
+              <option value="36">idade entre 30 e 36 anos</option>
+              <option value="41">idade entre 35 e 41 anos</option>
+              <option value="40">idade acima de 40 anos</option>
             </select>
           </Styled.WrapperInputText>
         )}
@@ -265,95 +268,20 @@ export const TableSearchResult = () => {
             />
           </Styled.WrapperInputText>
         ) : null}
-        {search && (
-          <PaginationComponent
-            pages={pages}
-            setCurrentPage={setCurrentPage}
-            currentPage={currentPage}
-          />
-        )}
 
-        {search && resultFilters?.length > 0 && (
-          <div className="users-found">
-            <span>
-              {resultFilters?.length}
-              {resultFilters.length === 1 ? " Usuário" : " Usuários"}{" "}
-            </span>
-          </div>
-        )}
-        {search && currentUsers.length === 0 && (
-          <span>nenhum usuário encontrado </span>
-        )}
         {search && selectSearchUpateUser && (
-          <div className="scroll">
-            <Styled.TableContainer ref={componentRef}>
-              {resultFilters?.length ? (
-                <Styled.TableHeader>
-                  <Styled.Tr>
-                    <Styled.Th>Nome</Styled.Th>
-                    <Styled.Th>Cpf</Styled.Th>
-                    <Styled.Th>Login</Styled.Th>
-                    <Styled.Th>status</Styled.Th>
-                    <Styled.Th>Ano</Styled.Th>
-                    <Styled.Th>Action</Styled.Th>
-                  </Styled.Tr>
-                </Styled.TableHeader>
-              ) : null}
-              <Styled.TableBody>
-                {currentUsers &&
-                  currentUsers.map((user, index) => (
-                    <Styled.Tr key={index}>
-                      <Styled.Td>{user.name}</Styled.Td>
-                      <Styled.Td>{regex.maskCpf(user.cpf)}</Styled.Td>
-                      <Styled.Td>{user.login}</Styled.Td>
-                      <Styled.Td>
-                        {" "}
-                        <select
-                          value={user.status}
-                          onChange={({ target }) => {
-                            fetchStatusUpdate(user.id, {
-                              status: target.value,
-                            });
-                            setSelectSearchUpateUser(false);
-                            setTimeout(() => {
-                              setSelectSearchUpateUser(true);
-                            }, 1);
-                          }}
-                        >
-                          <option value="block">Bloqueado</option>
-                          <option value="inative">Inativo</option>
-                          <option value="active">Ativo</option>
-                        </select>
-                      </Styled.Td>
-                      <Styled.Td>{user.birthday}</Styled.Td>
-                      <Styled.Td>
-                        <Styled.Actions>
-                          <Styled.Link to={`/dash/users/edit/${user.id}`}>
-                            <MdOutlineEdit />
-                          </Styled.Link>
-                          <Modal
-                            message={"Deseja Realmente excluir?"}
-                            confirmDelete={() => removeLineById(user.id)}
-                          >
-                            <Styled.BtnDestroy>
-                              <BsTrash />
-                            </Styled.BtnDestroy>
-                          </Modal>
-                        </Styled.Actions>
-                      </Styled.Td>
-                    </Styled.Tr>
-                  ))}
-              </Styled.TableBody>
-            </Styled.TableContainer>
-          </div>
-        )}
-        {search && resultFilters.length > 0 && (
-          <Modal
-            message={"Deseja deletar usuários listados?"}
-            confirmDelete={() => removeAllList()}
-          >
-            <button className="btn-delete-all">Excluir todos</button>
-          </Modal>
+          <TableResult
+            user={users}
+            search={search}
+            resultFilters={resultFilters}
+            componentRef={componentRef}
+            selectRefresh={selectSearchUpateUser}
+            usersPerPage={usersPerPage}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            selectSearchUpateUser={selectSearchUpateUser}
+            setSelectSearchUpateUser={setSelectSearchUpateUser}
+          />
         )}
       </Styled.WrapperTable>
     </Styled.Container>

@@ -20,6 +20,7 @@ export const FormLogin = () => {
 
   React.useEffect(() => {
     getUsers();
+    document.title = "Login";
   }, []);
 
   const handleLogin = (e) => {
@@ -52,7 +53,7 @@ export const FormLogin = () => {
         <Button name="voltar" route="/" />
       </Styled.WrapperButton>
       <Styled.WrapperLogin>
-        <h1>Login</h1>
+        <h1>Faça seu login</h1>
         <Styled.Form onSubmit={handleLogin}>
           <label htmlFor="email">
             E-mail:
@@ -73,8 +74,8 @@ export const FormLogin = () => {
             />
           </label>
           <button type="submit">Entrar</button>
+          <Link to="/recovery-password"> Esqueceu sua senha?</Link>
         </Styled.Form>
-        <Link to="/recovery-password"> Esqueceu sua senha?</Link>
       </Styled.WrapperLogin>
     </>
   );

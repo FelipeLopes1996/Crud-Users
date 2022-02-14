@@ -16,6 +16,7 @@ export const FilterButtons = ({
   const [selectSearchYearBorn, setSelectSearchYearBorn] = useState(value);
   const [selectSearchInsertUser, setSelectSearchInsertUser] = useState(value);
   const [selectSearchUpdateUser, setSelectSearchUpdateUser] = useState(value);
+  const [selectSearchYearUser, setSelectSearchYearUser] = useState(value);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -26,8 +27,6 @@ export const FilterButtons = ({
   useEffect(() => {
     setSelectSearchNome("Nome");
   }, []);
-
-  console.log(isOpen);
 
   return (
     <>
@@ -48,6 +47,7 @@ export const FilterButtons = ({
             setSelectSearchStatus("");
             setSelectSearchYearBorn("");
             setSelectSearchInsertUser("");
+            setSelectSearchYearUser("");
             setCurrentPage(0);
             setSearch("");
             setIsOpen(false);
@@ -67,6 +67,7 @@ export const FilterButtons = ({
             setSelectSearchStatus("");
             setSelectSearchYearBorn("");
             setSelectSearchInsertUser("");
+            setSelectSearchYearUser("");
             setCurrentPage(0);
             setSearch("");
             setIsOpen(false);
@@ -86,6 +87,7 @@ export const FilterButtons = ({
             setSelectSearchStatus("");
             setSelectSearchYearBorn("");
             setSelectSearchInsertUser("");
+            setSelectSearchYearUser("");
             setCurrentPage(0);
             setSearch("");
             setIsOpen(false);
@@ -105,6 +107,7 @@ export const FilterButtons = ({
             setSelectSearchLogin("");
             setSelectSearchYearBorn("");
             setSelectSearchInsertUser("");
+            setSelectSearchYearUser("");
             setCurrentPage(0);
             setSearch("");
             setIsOpen(false);
@@ -124,6 +127,7 @@ export const FilterButtons = ({
             setSelectSearchCpf("");
             setSelectSearchLogin("");
             setSelectSearchInsertUser("");
+            setSelectSearchYearUser("");
             setCurrentPage(0);
             setSearch("");
             setIsOpen(false);
@@ -143,6 +147,7 @@ export const FilterButtons = ({
             setSelectSearchStatus("");
             setSelectSearchCpf("");
             setSelectSearchLogin("");
+            setSelectSearchYearUser("");
             setCurrentPage(0);
             setSearch("");
             setIsOpen(false);
@@ -162,12 +167,33 @@ export const FilterButtons = ({
             setSelectSearchStatus("");
             setSelectSearchCpf("");
             setSelectSearchLogin("");
+            setSelectSearchYearUser("");
             setCurrentPage(0);
             setSearch("");
             setIsOpen(false);
           }}
         >
           data de atualização
+        </button>
+        <button
+          className={selectSearchYearUser ? "active" : "inative"}
+          value={selectSearchYearUser}
+          onClick={() => {
+            handleClick("YearUser");
+            setSelectSearchYearUser("YearUser");
+            setSelectSearchUpdateUser("");
+            setSelectSearchInsertUser("");
+            setSelectSearchNome("");
+            setSelectSearchYearBorn("");
+            setSelectSearchStatus("");
+            setSelectSearchCpf("");
+            setSelectSearchLogin("");
+            setCurrentPage(0);
+            setSearch("");
+            setIsOpen(false);
+          }}
+        >
+          Filtrar por Idade
         </button>
         <button className={!isOpen && "hide"} onClick={() => setIsOpen(false)}>
           Voltar

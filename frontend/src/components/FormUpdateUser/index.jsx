@@ -41,6 +41,7 @@ export const FormUpdateUser = () => {
 
   React.useEffect(() => {
     getUser();
+    document.title = "Atualizar usuário";
   }, [getUser]);
 
   const receiveData = () => {};

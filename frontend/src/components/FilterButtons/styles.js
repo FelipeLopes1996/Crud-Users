@@ -23,7 +23,7 @@ export const WrapperFilters = styled.aside`
     padding: 0.3rem 0.5rem;
     margin: 1rem 0;
     border-radius: 6px;
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: 600;
     background-color: ${(props) => props.theme.bg.white};
     box-shadow: 0 0 1rem #ccc;
@@ -64,8 +64,9 @@ export const OpenAsside = styled.button`
   display: none;
 
   @media (max-width: 768px) {
+    cursor: pointer;
     position: fixed;
-    top: 25rem;
+    top: 24rem;
     display: flex;
     display: ${(props) => (props.Open ? "none" : "flex")};
     align-items: center;
@@ -73,9 +74,10 @@ export const OpenAsside = styled.button`
     padding: 0.4rem;
     border-radius: 0 9px 9px 0;
     border: none;
-    background-color: ${(props) => props.theme.bg.darkBlue};
     color: ${(props) => props.theme.bg.white};
-    transition: all 300ms ease-in-out;
+    background-image: linear-gradient(130deg, #6c757d, #2b3940 70%);
+    &:hover {
+    }
     svg {
       color: ${(props) => props.theme.bg.white};
     }

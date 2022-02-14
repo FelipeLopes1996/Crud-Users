@@ -16,6 +16,7 @@ export const RecoveryForm = () => {
 
   React.useEffect(() => {
     getUsers();
+    document.title = "Recuperar senha";
   }, []);
 
   const handleLogin = (e) => {
@@ -42,7 +43,7 @@ export const RecoveryForm = () => {
   return (
     <>
       <Styled.WrapperButton>
-        <Button name="voltar" route="/" />
+        <Button name="voltar" route="/login" />
       </Styled.WrapperButton>
       <Styled.WrapperRecovery>
         <h1>Recuperar Senha</h1>

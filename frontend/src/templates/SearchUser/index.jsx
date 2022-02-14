@@ -1,12 +1,12 @@
 import React from "react";
 import Header from "../../components/Header";
-import { TableSearchResult } from "../../components/TableSearchResult";
+import { SearchResult } from "../../components/SearchResult";
 
 export const SearchUser = () => {
   return (
     <>
       <Header />
-      <TableSearchResult />
+      <SearchResult />
     </>
   );
 };

@@ -27,7 +27,7 @@ export const Form = styled.form`
   ${({ theme }) => css`
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 40rem;
     padding: 0 7rem;
 
     label {

@@ -28,6 +28,7 @@ export const FormCreateUser = () => {
   };
 
   React.useEffect(() => {
+    document.title = "Criar conta";
     getUsers();
   }, []);
 

@@ -48,6 +48,9 @@ export const Header = styled.header`
         padding: 0.2rem 0.5rem;
         font-size: 0.7rem;
       }
+      span {
+        font-size: 0.8rem;
+      }
     }
   `}
 `;

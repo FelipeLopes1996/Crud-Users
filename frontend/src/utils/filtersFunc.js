@@ -84,3 +84,40 @@ export const maxDate = () =>
   `${maxYear}-${maxMonth < 10 ? `0${maxMonth}` : maxMonth}-${
     maxDay < 10 ? `0${maxDay}` : maxDay
   }`;
+
+export const calcAge = (birthday) => {
+  let currentDate = new Date();
+  let currentYear = currentDate.getFullYear();
+  let yearBirthParts = birthday.split("-");
+  let dayBirth = yearBirthParts[2];
+  let monthBirth = yearBirthParts[1];
+  let yearBirth = yearBirthParts[0];
+  let age = currentYear - yearBirth;
+  let currentMonth = currentDate.getMonth() + 1;
+  //Se mes atual for menor que o nascimento, nao fez aniversario ainda;
+  if (currentMonth < monthBirth) {
+    age--;
+  } else {
+    //Se estiver no mes do nascimento, verificar o dia
+    if (currentMonth === monthBirth) {
+      if (new Date().getDate() < dayBirth) {
+        //Se a data atual for menor que o dia de nascimento ele ainda nao fez aniversario
+        age--;
+      }
+    }
+  }
+  return age;
+};
+
+export const filterAge = (array = [], value) => {
+  return array.filter((v) => {
+    let ageValue = calcAge(v.birthday);
+
+    if (value === "26" && ageValue <= 26) return v;
+    if (value === "31" && ageValue >= 25 && ageValue <= 31) return v;
+    if (value === "36" && ageValue >= 30 && ageValue <= 36) return v;
+    if (value === "41" && ageValue >= 35 && ageValue <= 41) return v;
+    if (value === "40" && ageValue >= 40) return v;
+    return null;
+  });
+};

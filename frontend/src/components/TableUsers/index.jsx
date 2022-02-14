@@ -92,7 +92,7 @@ export const TableUsers = () => {
                 <Styled.Td>
                   <Styled.Actions>
                     <Styled.Link to={`users/edit/${user.id}`}>
-                      <MdOutlineEdit />
+                      <MdOutlineEdit size={20} />
                     </Styled.Link>
 
                     <Modal
@@ -100,7 +100,7 @@ export const TableUsers = () => {
                       confirmDelete={() => removeLineById(user.id)}
                     >
                       <Styled.BtnDestroy>
-                        <BsTrash />
+                        <BsTrash size={20} />
                       </Styled.BtnDestroy>
                     </Modal>
                   </Styled.Actions>

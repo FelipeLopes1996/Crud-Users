@@ -20,16 +20,8 @@ export const WrapperLogin = styled.section`
       margin: 2rem auto;
       font-size: 2rem;
     }
-
-    a {
-      text-decoration: none;
-      color: ${theme.bg.darkBlue};
-      font-weight: 600;
-      transition: ease-in-out 400ms;
-
-      &:hover {
-        color: ${theme.bg.secondary};
-      }
+    @media (max-width: 768px) {
+      padding: 0 1rem;
     }
   `}
 `;
@@ -38,8 +30,14 @@ export const Form = styled.form`
   ${({ theme }) => css`
     display: flex;
     flex-direction: column;
-    width: 60%;
-    padding: 0 7rem;
+    width: 50rem;
+    padding: 4rem 7rem;
+    box-shadow: 0 0 0.8rem ${theme.bg.darkBlue};
+    border-radius: 8px;
+
+    label {
+      font-weight: 600;
+    }
 
     input {
       width: 100%;
@@ -75,9 +73,20 @@ export const Form = styled.form`
         box-shadow: 0 0 1rem #ccc;
       }
     }
+    a {
+      text-decoration: none;
+      color: ${theme.bg.darkBlue};
+      font-weight: 600;
+      transition: ease-in-out 400ms;
+      text-align: center;
+
+      &:hover {
+        color: ${theme.bg.secondary};
+      }
+    }
     @media (max-width: 768px) {
       width: 100%;
-      padding: 0 5rem;
+      padding: 1rem 3rem;
     }
   `}
 `;
