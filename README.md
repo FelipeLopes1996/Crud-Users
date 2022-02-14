@@ -21,4 +21,4 @@ Iniciar o backend primeiro para que o front consuma a api.
 
 # Neste projeto foi usado
 
-Javascript, React e Styled Components, Json.serve.
+Javascript, React, Context API, e Styled Components, Json.serve.
